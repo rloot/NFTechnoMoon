@@ -7,4 +7,7 @@ When the QR code is scanned if the validator is log in, it should update assiste
 it shoul redirect to the metadata view.
 
 
- 
+ ### URL
+
+technomoon.com.ar/nft/CONTRACT_ADDRESS/TOKEN_ID/SECRET
+
