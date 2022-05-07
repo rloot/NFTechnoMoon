@@ -11,3 +11,6 @@ it shoul redirect to the metadata view.
 
 technomoon.com.ar/nft/CONTRACT_ADDRESS/TOKEN_ID/SECRET
 
+
+### Flow chart
+![flow chart](https://i.imgur.com/EgEXhq5.png)
