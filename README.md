@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 There should be three views in the dapp
  - Raver
  - Verificator 
