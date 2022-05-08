@@ -6,6 +6,7 @@ import FullPageLoader from '../components/FullPageLoader'
 import getAbsoluteURL from '../utils/getAbsoluteURL'
 import useQRCodeScan from '../utils/useQRCodeScan'
 import axios from 'axios'
+import * as _ from 'lodash'
 
 const styles = {
   content: {
@@ -27,8 +28,12 @@ const Demo = () => {
   }, []);
 
   useEffect(() => {
-    console.log('HEY !! :::>>>> ',{decodedQRData})
+    if(!_.isEmpty(decodedQRData.data)) {
+      alert(decodedQRData.data)
+    }
+
   }, [decodedQRData])
+
   const AuthUser = useAuthUser() // the user is guaranteed to be authenticated
   const token = AuthUser.getIdToken()
 

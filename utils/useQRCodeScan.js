@@ -3,7 +3,7 @@ import {Html5Qrcode} from "html5-qrcode"
 
 export default function useQRCodeScan({
     qrcodeMountNodeID = "",
-    closeAfterScan = true,
+    closeAfterScan = false,
     getQrBoxDimension,
   }) {
     const [decodedQRData, setDecodedQrData] = useState({
@@ -69,11 +69,11 @@ export default function useQRCodeScan({
             // { deviceId: { exact: cameraId } },
             { facingMode: "environment" },
   
-            { fps: 2, qrbox, aspectRatio: 1.777778 },
+            { fps: 100, qrbox, aspectRatio: 1.777778 },
             (qrCodeMessage) => {
               // do something when code is read
-              // console.log('scanned qr code', qrCodeMessage);
-              setDecoderQrData({
+              console.log({qrCodeMessage})
+              setDecodedQrData({
                 ...decodedQRData,
                 isScanSuccess: true,
                 isScanning: false,
@@ -98,7 +98,8 @@ export default function useQRCodeScan({
             (errorMessage) => {}
           )
           .catch((err) => {
-            setDecoderQrData({
+            console.log('ERROR >> ',err)
+            setDecodedQrData({
               ...decodedQRData,
               isScanSuccess: false,
               isScanning: false,
@@ -108,7 +109,7 @@ export default function useQRCodeScan({
             });
           });
       } catch (e) {
-        setDecoderQrData({
+        setDecodedQrData({
           ...decodedQRData,
           isScanSuccess: false,
           isScanning: false,
