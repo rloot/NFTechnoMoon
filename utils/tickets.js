@@ -9,7 +9,7 @@ const markTicketAsUsed = (contractAddress, tokenId) => {
     .ref(`tickets/${contractAddress}/used/${tokenId}`)
     .set(true);
   
-  var tickets = firebnase.database().ref(`tickets/${contractAddress}`);
+  var tickets = firebase.database().ref(`tickets/${contractAddress}`);
   tickets.on('value', (ticket) => {
     const data = ticket.val();
     console.log(data)
