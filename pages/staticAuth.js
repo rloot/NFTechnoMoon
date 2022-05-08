@@ -28,9 +28,16 @@ const Demo = () => {
   }, []);
 
   useEffect(() => {
-    if(!_.isEmpty(decodedQRData.data)) {
-      alert(decodedQRData.data)
-    }
+    (async ()=> {
+      if(!_.isEmpty(decodedQRData.data)) {
+        // validate URL
+        // get parameters
+        // send request
+        
+        const response = await validateTicket()
+        console.log(decodedQRData.data, response)
+      }
+    })()
 
   }, [decodedQRData])
 
