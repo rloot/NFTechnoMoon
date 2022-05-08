@@ -29,6 +29,7 @@ const isTicketUsed = (contractAddress, tokenId) => {
       return snap;
     } else {
       console.log("No data available");
+      return false;
     }
   }).catch((error) => {
     console.error(error);

@@ -1,16 +1,17 @@
 import { verifyIdToken } from 'next-firebase-auth'
 import fetch from 'node-fetch';
 import initAuth from '../../utils/initAuth'
+import { isTicketUsed } from '../../utils/tickets'
 import * as _ from 'lodash'
 
 initAuth()
 
 const handler = async (req, res) => {
-  if (!(req.headers && req.headers.authorization)) {
+  const contractAddress = _.get(req, 'query.contractAddress', null) // TODO: pasar param por post
+  const tokenId = _.get(req, 'query.tokenId', null)
+  const secret = _.get(req, 'query.secret', null)
 
-    const contractAddress = _.get(req, 'query.contractAddress', null) // TODO: pasar param por post
-    const tokenId = _.get(req, 'query.tokenId', null)
-    const secret = _.get(req, 'query.secret', null)
+  if (!(req.headers && req.headers.authorization)) {
     
     if (!contractAddress && !tokenId && !secret) {
       return res.status(402).json({ error: 'Missing param'})
@@ -33,9 +34,8 @@ const handler = async (req, res) => {
 
       res.status(200).json({metadataResponse})
   }
-
+  
   const token = req.headers.authorization
-  let favoriteColor
   // This "unauthenticated" token is just an demo of the
   // "SSR with no token" example.
   if (token === 'unauthenticated') {
@@ -47,13 +47,14 @@ const handler = async (req, res) => {
       // eslint-disable-next-line no-console
       return res.status(403).json({ error: 'Not authorized' })
     }
-
+    
    // Validate ticket
-   // get(address, tokenId, secret)  if not used mark it as.
+   const isTokenUsedResponse = isTicketUsed(contractAddress, tokenId)
    // return state
- }
+   return res.status(200).json({ isTokenUsedResponse })
 
-  return res.status(200).json({ favoriteColor })
+   
+ }
 }
 
 export default handler
