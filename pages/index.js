@@ -33,7 +33,7 @@ const Demo = () => {
         secret: "a"
       }
     })
-
+    console.log(isTicketUsed)
     return isTicketUsed
   }
 

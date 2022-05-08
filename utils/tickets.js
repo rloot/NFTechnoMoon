@@ -17,15 +17,15 @@ const markTicketAsUsed = (contractAddress, tokenId) => {
   });
 }
 
-const isTicketUsed = (contractAddress, tokenId) => {
+const isTicketUsed = async (contractAddress, tokenId) => {
   const database = firebase.database(admin.apps[0])
 
-  database.ref(`tickets/${contractAddress}/used/${tokenId}`)
+  return await database.ref(`tickets/${contractAddress}/used/${tokenId}`)
   .get()
   .then((snapshot) => {
     if (snapshot.exists()) {
       const snap = snapshot.val()
-      console.log(snap)
+      console.log('snap', snap)
       return snap;
     } else {
       console.log("No data available");
