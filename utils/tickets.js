@@ -20,7 +20,7 @@ const markTicketAsUsed = (contractAddress, tokenId) => {
 const isTicketUsed = async (contractAddress, tokenId) => {
   const database = firebase.database(admin.apps[0])
 
-  return await database.ref(`tickets/${contractAddress}/used/${tokenId}`)
+  return database.ref(`tickets/${contractAddress}/used/${tokenId}`)
   .get()
   .then((snapshot) => {
     if (snapshot.exists()) {

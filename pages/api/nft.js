@@ -43,21 +43,23 @@ const handler = async (req, res) => {
   } else {
     try {
       await verifyIdToken(token)
+          
+      // Validate ticket
+      const isTokenUsedResponse = await isTicketUsed(contractAddress, tokenId)
+      console.log('>>>>>>' , isTokenUsedResponse, 'asdf')
+      //mark token
+      if(isTokenUsedResponse) {
+        return res.status(200).json({ state: 'token_used' })
+      } else  {
+        const markedTicket = await markTicketAsUsed(contractAddress, tokenId)
+        return res.status(200).json({ state: 'marked' })
+      }
+      
     } catch (e) {
       // eslint-disable-next-line no-console
       return res.status(403).json({ error: 'Not authorized' })
     }
-    
-   // Validate ticket
-   const isTokenUsedResponse = isTicketUsed(contractAddress, tokenId)
-    console.log('>>>>>>' , isTokenUsedResponse)
-   //mark token
-   if(isTokenUsedResponse) {
-    return res.status(200).json({ state: 'token_used' })
-   } else  {
-      const markedTicket = markTicketAsUsed(contractAddress, tokenId)
-      return res.status(200).json({ state: 'marked' })
-   }
+
  }
 }
 

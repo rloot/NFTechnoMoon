@@ -29,7 +29,7 @@ const Demo = () => {
       },
       params: {
         contractAddress: "0xa",
-        tokenId: 'b',
+        tokenId: '43',
         secret: "a"
       }
     })
