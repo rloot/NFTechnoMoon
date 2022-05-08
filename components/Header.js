@@ -26,11 +26,6 @@ const styles = {
 
 const Header = ({ email, signOut }) => (
   <div style={styles.container}>
-    <div style={styles.versionsContainer}>
-      <div>v{nfaDependencyVersion}</div>
-      <div>Next.js v{nextDependencyVersion}</div>
-      <div>Firebase v{firebaseDependencyVersion}</div>
-    </div>
     {email ? (
       <>
         <p>Signed in as {email}</p>

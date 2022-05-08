@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import DemoPageLinks from '../components/DemoPageLinks'
 import FullPageLoader from '../components/FullPageLoader'
 import getAbsoluteURL from '../utils/getAbsoluteURL'
+import axios from 'axios'
 
 const styles = {
   content: {
@@ -16,46 +17,22 @@ const styles = {
 
 const Demo = () => {
   const AuthUser = useAuthUser() // the user is guaranteed to be authenticated
+  const token = AuthUser.getIdToken()
 
-  const [favoriteColor, setFavoriteColor] = useState()
-  const fetchData = useCallback(async () => {
-    const token = await AuthUser.getIdToken()
-    const endpoint = getAbsoluteURL('/api/example')
-    const response = await fetch(endpoint, {
-      method: 'GET',
-      headers: {
+  const validateTicket = async () => {
+    const isTicketUsed = await axios.get(getAbsoluteURL('/api/nft'), {
+      auth: {
         Authorization: token,
       },
-    })
-    const data = await response.json()
-    if (!response.ok) {
-      // eslint-disable-next-line no-console
-      console.error(
-        `Data fetching failed with status ${response.status}: ${JSON.stringify(
-          data
-        )}`
-      )
-      return null
-    }
-    return data
-  }, [AuthUser])
-
-  useEffect(() => {
-    let isCancelled = false
-    const fetchFavoriteColor = async () => {
-      const data = await fetchData()
-      if (!isCancelled) {
-        setFavoriteColor(data ? data.favoriteColor : 'unknown :(')
+      params: {
+        contractAddress: "0xa",
+        tokenId: '43',
+        secret: "a"
       }
-    }
-    fetchFavoriteColor()
-    return () => {
-      // A quick but not ideal way to avoid state updates after unmount.
-      // In your app, prefer aborting fetches:
-      // https://developers.google.com/web/updates/2017/09/abortable-fetch
-      isCancelled = true
-    }
-  }, [fetchData])
+    })
+    console.log(isTicketUsed)
+    return isTicketUsed
+  }
 
   return (
     <div>
@@ -64,14 +41,11 @@ const Demo = () => {
         <div style={styles.infoTextContainer}>
           <h3>Example: static + loader</h3>
           <p>
-            This page requires is static but requires authentication. Before the
-            Firebase client SDK initializes, it shows a loader. After
-            initializing, if the user is not authenticated, it client-side
-            redirects to the login page.
+            This page requires is static but requires authentication.
           </p>
-          <p>Your favorite color is: {favoriteColor}</p>
         </div>
         <DemoPageLinks />
+        <button onClick={validateTicket}>NFT AUTH</button>
       </div>
     </div>
   )
