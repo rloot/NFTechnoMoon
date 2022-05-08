@@ -16,15 +16,14 @@ const styles = {
 
 const DemoPageLinks = () => (
   <div style={styles.content}>
-    <h4>Examples</h4>
     <div>
       <Link href="/staticAuth">
         <a style={styles.linkAnchor}>
-          Example: static + loader + data fetching with ID token
+          Verificar ticket.
         </a>
       </Link>
       <Link href="/auth">
-        <a style={styles.linkAnchor}>Login page: static</a>
+        <a style={styles.linkAnchor}>Log in</a>
       </Link>
     </div>
   </div>
