@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import DemoPageLinks from '../components/DemoPageLinks'
 import FullPageLoader from '../components/FullPageLoader'
 import getAbsoluteURL from '../utils/getAbsoluteURL'
+import useQRCodeScan from '../utils/useQRCodeScan'
 import axios from 'axios'
 
 const styles = {
@@ -16,6 +17,18 @@ const styles = {
 }
 
 const Demo = () => {
+  const { startQrCode, decodedQRData } = useQRCodeScan({
+    qrcodeMountNodeID: "qrcodemountnode",
+  });
+  
+  useEffect(() => {
+    // Add logic to add the camera and scan it
+    startQrCode();
+  }, []);
+
+  useEffect(() => {
+    console.log('HEY !! :::>>>> ',{decodedQRData})
+  }, [decodedQRData])
   const AuthUser = useAuthUser() // the user is guaranteed to be authenticated
   const token = AuthUser.getIdToken()
 
@@ -26,7 +39,7 @@ const Demo = () => {
       },
       params: {
         contractAddress: "0xa",
-        tokenId: '43',
+        tokenId: '40',
         secret: "a"
       }
     })
@@ -39,13 +52,15 @@ const Demo = () => {
       <Header email={AuthUser.email} signOut={AuthUser.signOut} />
       <div style={styles.content}>
         <div style={styles.infoTextContainer}>
-          <h3>Example: static + loader</h3>
+          <h3>Scan QR code</h3>
           <p>
             This page requires is static but requires authentication.
           </p>
         </div>
-        <DemoPageLinks />
-        <button onClick={validateTicket}>NFT AUTH</button>
+        {/* <DemoPageLinks /> */}
+        <div id="qrcodemountnode"></div>
+
+        <button onClick={validateTicket}>NFT API</button>
       </div>
     </div>
   )
