@@ -11,16 +11,7 @@ const initAuth = () => {
     // This demonstrates setting a dynamic destination URL when
     // redirecting from app pages. Alternatively, you can simply
     // specify `authPageURL: '/auth-ssr'`.
-    authPageURL: ({ ctx }) => {
-      const isServerSide = typeof window === 'undefined'
-      const origin = isServerSide
-        ? absoluteUrl(ctx.req).origin
-        : window.location.origin
-      const destPath =
-        typeof window === 'undefined' ? ctx.resolvedUrl : window.location.href
-      const destURL = new URL(destPath, origin)
-      return `auth-ssr?destination=${encodeURIComponent(destURL)}`
-    },
+    authPageURL: '/',
 
     // This demonstrates setting a dynamic destination URL when
     // redirecting from auth pages. Alternatively, you can simply
@@ -39,7 +30,7 @@ const initAuth = () => {
 
       // By default, go to the index page if the destination URL
       // is invalid or unspecified.
-      let destURL = '/'
+      let destURL = '/staticAuth'
       if (destinationParamVal) {
         // Verify the redirect URL host is allowed.
         // https://owasp.org/www-project-web-security-testing-guide/v41/4-Web_Application_Security_Testing/11-Client_Side_Testing/04-Testing_for_Client_Side_URL_Redirect

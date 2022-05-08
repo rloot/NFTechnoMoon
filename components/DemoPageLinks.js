@@ -18,27 +18,13 @@ const DemoPageLinks = () => (
   <div style={styles.content}>
     <h4>Examples</h4>
     <div>
-      <Link href="/">
-        <a style={styles.linkAnchor}>Home: SSR, no auth required</a>
-      </Link>
-      <Link href="/ssr-auth-required">
-        <a style={styles.linkAnchor}>
-          Example: SSR + data fetching with ID token
-        </a>
-      </Link>
-      <Link href="/ssr-no-token">
-        <a style={styles.linkAnchor}>Example: SSR + no ID token</a>
-      </Link>
-      <Link href="/static-auth-required-loader">
+      <Link href="/staticAuth">
         <a style={styles.linkAnchor}>
           Example: static + loader + data fetching with ID token
         </a>
       </Link>
       <Link href="/auth">
         <a style={styles.linkAnchor}>Login page: static</a>
-      </Link>
-      <Link href="/auth-ssr">
-        <a style={styles.linkAnchor}>Login page: server-rendered</a>
       </Link>
     </div>
   </div>
