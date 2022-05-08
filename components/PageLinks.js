@@ -17,7 +17,7 @@ const styles = {
 const PageLinks = () => (
   <div style={styles.content}>
     <div>
-      <Link href="/staticAuth">
+      <Link href="/verify">
         <a style={styles.linkAnchor}>
           Verificar ticket.
         </a>
