@@ -69,7 +69,6 @@ const Demo = () => {
             This page requires is static but requires authentication.
           </p>
         </div>
-        {/* <DemoPageLinks /> */}
         <div id="qrcodemountnode"></div>
 
         <button onClick={validateTicket}>NFT API</button>
