@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useAuthUser, withAuthUser, AuthAction } from 'next-firebase-auth'
 import Header from '../components/Header'
-import DemoPageLinks from '../components/DemoPageLinks'
+import PageLinks from '../components/PageLinks'
 import FullPageLoader from '../components/FullPageLoader'
 import getAbsoluteURL from '../utils/getAbsoluteURL'
 import useQRCodeScan from '../utils/useQRCodeScan'
@@ -33,7 +33,7 @@ const Demo = () => {
         // validate URL
         // get parameters
         // send request
-        
+
         const response = await validateTicket()
         console.log(decodedQRData.data, response)
       }

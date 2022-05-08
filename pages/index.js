@@ -4,7 +4,7 @@ import {
   withAuthUser,
 } from 'next-firebase-auth'
 import Header from '../components/Header'
-import DemoPageLinks from '../components/DemoPageLinks'
+import PageLinks from '../components/PageLinks'
 import getAbsoluteURL from '../utils/getAbsoluteURL'
 
 const styles = {
@@ -42,7 +42,7 @@ const Demo = () => {
         <div style={styles.infoTextContainer}>
           <h3>Tehcno Moon NFT</h3>
         </div>
-        <DemoPageLinks />
+        <PageLinks />
       </div>
     </div>
   )

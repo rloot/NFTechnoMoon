@@ -14,7 +14,7 @@ const styles = {
   },
 }
 
-const DemoPageLinks = () => (
+const PageLinks = () => (
   <div style={styles.content}>
     <div>
       <Link href="/staticAuth">
@@ -29,6 +29,6 @@ const DemoPageLinks = () => (
   </div>
 )
 
-DemoPageLinks.displayName = 'DemoPageLinks'
+PageLinks.displayName = 'PageLinks'
 
-export default DemoPageLinks
+export default PageLinks
