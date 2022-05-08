@@ -1,8 +1,8 @@
 import { setAuthCookies } from "next-firebase-auth";
 import initAuth from "../../utils/initAuth";
-import initB from "../../utils/initB";
+import initFireStore from "../../utils/initFireStore";
 
-initB();
+initFireStore();
 initAuth();
 
 const handler = async (req, res) => {
