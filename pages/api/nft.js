@@ -8,7 +8,7 @@ initAuth()
 
 const handler = async (req, res) => {
   try {
-
+    
     // TODO: validate path and secret 
     const contractAddress = _.get(req, 'query.contractAddress', null) // TODO: pasar param por post
     const tokenId = _.get(req, 'query.tokenId', null)

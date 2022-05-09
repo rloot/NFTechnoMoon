@@ -18,10 +18,41 @@ const styles = {
 }
 
 const Demo = () => {
+  const AuthUser = useAuthUser() // the user is guaranteed to be authenticated
+  const token = AuthUser.getIdToken()
+
   const { startQrCode, decodedQRData } = useQRCodeScan({
     qrcodeMountNodeID: "qrcodemountnode",
   });
-  
+
+  const getNftParametersFromUrl = (ticketUrl) => {
+    const url = new URL(ticketUrl);
+    const requestedNft = new URLSearchParams(url.search);
+
+    return {
+      contractAddres: requestedNft.get('contractAddres'),
+      tokenId: requestedNft.get('tokenId'),
+      secret: requestedNft.get('secret')
+    }
+  }
+
+  const validateTicket = async ({contractAddress, tokenId, secret}) => {
+    const validation = await axios.get(getAbsoluteURL('/api/nft'), {
+      auth: {
+        Authorization: token,
+      },
+      params: {
+        contractAddress,
+        tokenId,
+        secret
+      }
+    })
+
+    alert(validation.data.state)
+    
+    return validation
+  }
+
   useEffect(() => {
     // Add logic to add the camera and scan it
     startQrCode();
@@ -33,34 +64,13 @@ const Demo = () => {
         // validate URL
         // get parameters
         // send request
-
-        const response = await validateTicket()
-        console.log(decodedQRData.data, response)
+        const tokenParameters = getNftParametersFromUrl(decodedQRData.data)
+        const response = await validateTicket(tokenParameters)
       }
     })()
 
   }, [decodedQRData])
-
-  const AuthUser = useAuthUser() // the user is guaranteed to be authenticated
-  const token = AuthUser.getIdToken()
-
-  const validateTicket = async () => {
-    const validation = await axios.get(getAbsoluteURL('/api/nft'), {
-      auth: {
-        Authorization: token,
-      },
-      params: {
-        contractAddress: "0xa",
-        tokenId: "0",
-        secret: "a"
-      }
-    })
-
-    console.log(validation)
-    
-    return validation
-  }
-
+  
   return (
     <div>
       <Header email={AuthUser.email} signOut={AuthUser.signOut} />
