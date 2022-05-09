@@ -54,10 +54,26 @@ const handler = async (req, res) => {
       
       const isTokenUsedResponse = _.get(ticket, 'marked', false)
 
-      if(isTokenUsedResponse) {
+      if(isTokenUsedResponse) 
+      {
         return res.status(200).json({ state: 'used', isTokenUsedResponse })
-      } else {
-        return res.status(200).json({ state: 'marked', isTokenUsedResponse })
+      } 
+      else 
+      {
+        // mark here
+        const setMarked = markTicketAsUsed(contractAddress, tokenId)
+
+        if(setMarked) 
+        {
+          return res.status(200).json({ state: 'marked_success', isTokenUsedResponse })
+        }
+        else 
+        {
+          return res.status(200).json({ state: 'marked_failure' })
+        }
+
+        //! marked
+        // failed to mark
       }
       
     } catch (e) {

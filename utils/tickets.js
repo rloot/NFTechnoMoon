@@ -2,21 +2,26 @@ import admin from 'firebase-admin'
 import firebase from "firebase";
 import * as _ from 'lodash';
 
-const markTicketAsUsed = (contractAddress, tokenId) => {
+const markTicketAsUsed = async (contractAddress, tokenId) => {
   const database = firebase.database(admin.apps[0])
 
-  var tickets = firebase.database().ref(`tickets/${contractAddress}`);
+  var tickets = firebase.database().ref(`tickets/${contractAddress}/${tokenId}/marked`);
+  
   tickets.on('value', (ticket) => {
     const data = ticket.val();
     console.log(data)
     return data;
   });
 
-  // firebase
-  //   .database(admin.apps[0])
-  //   .ref(`tickets/${contractAddress}/${tokenId}/marked `)
-  //   .set(true);
+  firebase
+  .database(admin.apps[0])
+  .ref(`tickets/${contractAddress}/${tokenId}`)
+  .update({marked:false});
 
+    // isTicketUsed(contractAddress, tokenId)
+
+  // console.log("markedRequest", markedRequest)
+  // return markedRequest
 }
 
 const getTicket = async (contractAddress, tokenId) => {
