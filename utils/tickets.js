@@ -5,23 +5,14 @@ import * as _ from 'lodash';
 const markTicketAsUsed = async (contractAddress, tokenId) => {
   const database = firebase.database(admin.apps[0])
 
-  var tickets = firebase.database().ref(`tickets/${contractAddress}/${tokenId}/marked`);
-  
-  tickets.on('value', (ticket) => {
-    const data = ticket.val();
-    console.log(data)
-    return data;
-  });
+  var ticket = `tickets/${contractAddress}/${tokenId}`;
 
   firebase
   .database(admin.apps[0])
-  .ref(`tickets/${contractAddress}/${tokenId}`)
-  .update({marked:false});
+  .ref(ticket)
+  .update({marked:true});
 
-    // isTicketUsed(contractAddress, tokenId)
-
-  // console.log("markedRequest", markedRequest)
-  // return markedRequest
+  return await isTicketUsed(contractAddress, tokenId)
 }
 
 const getTicket = async (contractAddress, tokenId) => {
@@ -52,7 +43,6 @@ const isTicketUsed = async (contractAddress, tokenId) => {
       const ticket = snapshot.val()
       return _.get(ticket, 'marked', null);
     } else {
-      console.log("NFT no existe");
       return false;
     }
   }).catch((error) => {

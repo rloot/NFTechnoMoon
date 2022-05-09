@@ -45,7 +45,7 @@ const Demo = () => {
   const token = AuthUser.getIdToken()
 
   const validateTicket = async () => {
-    const isTicketUsed = await axios.get(getAbsoluteURL('/api/nft'), {
+    const validation = await axios.get(getAbsoluteURL('/api/nft'), {
       auth: {
         Authorization: token,
       },
@@ -55,8 +55,10 @@ const Demo = () => {
         secret: "a"
       }
     })
-    console.log(isTicketUsed)
-    return isTicketUsed
+
+    console.log(validation)
+    
+    return validation
   }
 
   return (
