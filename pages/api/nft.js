@@ -1,7 +1,7 @@
 import { verifyIdToken } from 'next-firebase-auth'
 import fetch from 'node-fetch';
 import initAuth from '../../utils/initAuth'
-import { isTicketUsed, markTicketAsUsed } from '../../utils/tickets'
+import { isTicketUsed, markTicketAsUsed, getTicket } from '../../utils/tickets'
 import * as _ from 'lodash'
 
 initAuth()
@@ -45,12 +45,18 @@ const handler = async (req, res) => {
       await verifyIdToken(token)
           
       // Validate ticket
-      const isTokenUsedResponse = await isTicketUsed(contractAddress, tokenId)
+      const ticket = await getTicket(contractAddress, tokenId)
+
+      console.log(ticket)
       //mark token
+      if (_.isEmpty(ticket)) { return res.status(200).json({ state: 'non_existent', ticket }) }
+      
+      
+      const isTokenUsedResponse = _.get(ticket, 'marked', false)
+
       if(isTokenUsedResponse) {
-        return res.status(200).json({ state: 'token_used', isTokenUsedResponse })
-      } else  {
-        // const markedTicket = await markTicketAsUsed(contractAddress, tokenId)
+        return res.status(200).json({ state: 'used', isTokenUsedResponse })
+      } else {
         return res.status(200).json({ state: 'marked', isTokenUsedResponse })
       }
       

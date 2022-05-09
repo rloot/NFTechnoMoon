@@ -1,5 +1,6 @@
 import admin from 'firebase-admin'
 import firebase from "firebase";
+import * as _ from 'lodash';
 
 const markTicketAsUsed = (contractAddress, tokenId) => {
   const database = firebase.database(admin.apps[0])
@@ -18,18 +19,35 @@ const markTicketAsUsed = (contractAddress, tokenId) => {
 
 }
 
-const isTicketUsed = async (contractAddress, tokenId) => {
+const getTicket = async (contractAddress, tokenId) => {
   const database = firebase.database(admin.apps[0])
 
-  return database.ref(`tickets/${contractAddress}/${tokenId}/marked`)
+  return database.ref(`tickets/${contractAddress}/${tokenId}`)
   .get()
   .then((snapshot) => {
     if (snapshot.exists()) {
-      const snap = snapshot.val()
-      console.log('snap', snap)
-      return snap;
+       return snapshot.val()
     } else {
-      console.log("No data available");
+      console.log("NFT no existe");
+      return false;
+    }
+  }).catch((error) => {
+    console.error(error);
+    return false
+  });  
+}
+
+const isTicketUsed = async (contractAddress, tokenId) => {
+  const database = firebase.database(admin.apps[0])
+
+  return database.ref(`tickets/${contractAddress}/${tokenId}`)
+  .get()
+  .then((snapshot) => {
+    if (snapshot.exists()) {
+      const ticket = snapshot.val()
+      return _.get(ticket, 'marked', null);
+    } else {
+      console.log("NFT no existe");
       return false;
     }
   }).catch((error) => {
@@ -37,4 +55,4 @@ const isTicketUsed = async (contractAddress, tokenId) => {
   });  
 }
 
-export { markTicketAsUsed, isTicketUsed }
+export { markTicketAsUsed, isTicketUsed, getTicket }
