@@ -26,6 +26,7 @@ const Demo = () => {
   });
 
   const getNftParametersFromUrl = (ticketUrl) => {
+    // http://localhost:3000?contractAddress=0xa&tokenId=0&secret=a
     const url = new URL(ticketUrl);
     const requestedNft = new URLSearchParams(url.search);
 
@@ -48,10 +49,15 @@ const Demo = () => {
       }
     })
 
-    alert(validation.data.state)
-    
+    // alert(validation.data.state)
     return validation
   }
+
+  const [ validationState, setValidationState ] = useState({
+    loading: false,
+    error: false,
+    state: '',
+  })
 
   useEffect(() => {
     // Add logic to add the camera and scan it
@@ -61,16 +67,23 @@ const Demo = () => {
   useEffect(() => {
     (async ()=> {
       if(!_.isEmpty(decodedQRData.data)) {
-        // validate URL
-        // get parameters
-        // send request
         const tokenParameters = getNftParametersFromUrl(decodedQRData.data)
-        const response = await validateTicket(tokenParameters)
+
+        setValidationState({...validationState, loading: true})
+        
+        const validationResponse = await validateTicket(tokenParameters)
+        const validationState = _.get(validationResponse, 'data.state', 'no_data')
+
+        setValidationState({...validationState, loading: false, state: validationState})
       }
     })()
 
-  }, [decodedQRData])
+  }, [decodedQRData.data])
   
+
+
+
+
   return (
     <div>
       <Header email={AuthUser.email} signOut={AuthUser.signOut} />
@@ -78,7 +91,8 @@ const Demo = () => {
         <div style={styles.infoTextContainer}>
           <h3>Scan QR code</h3>
           <p>
-            This page requires is static but requires authentication.
+            This page requires authentication.
+            STATE: {validationState.state}
           </p>
         </div>
         <div id="qrcodemountnode"></div>

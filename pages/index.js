@@ -19,22 +19,6 @@ const styles = {
 const Demo = () => {
   const AuthUser = useAuthUser()
 
-  const validateTicket = async () => {
-    const token = await AuthUser.getIdToken()
-    const isTicketUsed = await axios.get(getAbsoluteURL('/api/nft'), {
-      auth: {
-        Authorization: token,
-      },
-      params: {
-        contractAddress: "0xa",
-        tokenId: '43',
-        secret: "a"
-      }
-    })
-    console.log(isTicketUsed)
-    return isTicketUsed
-  }
-
   return (
     <div>
       <Header email={AuthUser.email} signOut={AuthUser.signOut} />
