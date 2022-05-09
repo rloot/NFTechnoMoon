@@ -48,10 +48,10 @@ const handler = async (req, res) => {
       const isTokenUsedResponse = await isTicketUsed(contractAddress, tokenId)
       //mark token
       if(isTokenUsedResponse) {
-        return res.status(200).json({ state: 'token_used' })
+        return res.status(200).json({ state: 'token_used', isTokenUsedResponse })
       } else  {
-        const markedTicket = await markTicketAsUsed(contractAddress, tokenId)
-        return res.status(200).json({ state: 'marked' })
+        // const markedTicket = await markTicketAsUsed(contractAddress, tokenId)
+        return res.status(200).json({ state: 'marked', isTokenUsedResponse })
       }
       
     } catch (e) {

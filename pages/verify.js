@@ -51,7 +51,7 @@ const Demo = () => {
       },
       params: {
         contractAddress: "0xa",
-        tokenId: '40',
+        tokenId: "0",
         secret: "a"
       }
     })
