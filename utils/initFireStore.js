@@ -2,7 +2,7 @@
 import firebase from "firebase";
 import admin from "firebase-admin";
 
-const initB = () => {
+const initFireStore = () => {
   // console.log(admin.apps.length, admin.apps[0]);
   if (!firebase.apps.length) {
     firebase.initializeApp({
@@ -18,4 +18,4 @@ const initB = () => {
   }
 };
 
-export default initB;
+export default initFireStore;

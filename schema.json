@@ -1,0 +1,14 @@
+{
+  "tickets": {
+    {
+      "0xa": {
+        "0": {
+          "secret": "",
+          "ownerEmail": "",
+          "ownersWalletAddress": "",
+          "marked": ""
+        }     
+      }  
+     }
+  }
+}
