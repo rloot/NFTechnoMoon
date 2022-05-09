@@ -8,6 +8,8 @@ initAuth()
 
 const handler = async (req, res) => {
   try {
+
+    // TODO: validate path and secret 
     const contractAddress = _.get(req, 'query.contractAddress', null) // TODO: pasar param por post
     const tokenId = _.get(req, 'query.tokenId', null)
     const secret = _.get(req, 'query.secret', null)
@@ -44,7 +46,6 @@ const handler = async (req, res) => {
     if (_.isEmpty(ticket)) { return res.status(200).json({ state: 'non_existent', ticket }) }
 
     //Check if token is used
-    console.log({ticket})
     const isTokenUsedResponse = _.get(ticket, 'marked', false)
     if (isTokenUsedResponse) { return res.status(200).json({ state: 'used', isTokenUsedResponse }) } 
     else {  
