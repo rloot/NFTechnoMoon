@@ -75,10 +75,12 @@ const Demo = () => {
         const validationState = _.get(validationResponse, 'data.state', 'no_data')
 
         setValidationState({...validationState, loading: false, state: validationState})
+
+        console.log(decodedQRData)
       }
     })()
 
-  }, [decodedQRData.data])
+  }, [decodedQRData])
   
 
 
