@@ -13,7 +13,8 @@ const handler = async (req, res) => {
     const contractAddress = _.get(req, 'query.contractAddress', null) // TODO: pasar param por post
     const tokenId = _.get(req, 'query.tokenId', null)
     const secret = _.get(req, 'query.secret', null)
-  
+    
+    console.log({contractAddress,tokenId,secret})
     if (!contractAddress && !tokenId && !secret) {
       return res.status(402).json({ error: 'Missing param'})
     }

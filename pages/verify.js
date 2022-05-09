@@ -30,7 +30,7 @@ const Demo = () => {
     const requestedNft = new URLSearchParams(url.search);
 
     return {
-      contractAddres: requestedNft.get('contractAddres'),
+      contractAddress: requestedNft.get('contractAddress'),
       tokenId: requestedNft.get('tokenId'),
       secret: requestedNft.get('secret')
     }
