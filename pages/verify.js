@@ -67,6 +67,8 @@ const Demo = () => {
     state: '',
   })
 
+  const [ timeOut, setTimeout ] = useState(false)
+
   useEffect(() => {
     // Add logic to add the camera and scan it
     startQrCode();
@@ -81,20 +83,20 @@ const Demo = () => {
       console.log(decodedQRData)
       if(!_.isEmpty(decodedQRData.data)) {
         
-        const interval = setInterval(async () => {
-          const tokenParameters = getNftParametersFromUrl(decodedQRData.data)
-  
-          const validationResponse = await validateTicket(tokenParameters)
-          const validationStateRes = _.get(validationResponse, 'data.state', 'no_data')
-          
-          setValidationState({...validationState, state: validationStateRes})
+        const interval = setTimeout(async () => { 
+        const tokenParameters = getNftParametersFromUrl(decodedQRData.data)
 
+        const validationResponse = await validateTicket(tokenParameters)
+        console.log('hey')
+        const validationStateRes = _.get(validationResponse, 'data.state', 'no_data')
+        
+        setValidationState({...validationState, state: validationStateRes})
         }, 2500);
       
-        return () => clearInterval(interval);
+        return () => clearTimeout(interval);
       }
     })()
-  }, [decodedQRData.data])
+  }, [decodedQRData])
 
   return (
     <div>
