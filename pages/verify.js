@@ -27,7 +27,15 @@ const Demo = () => {
 
   const getNftParametersFromUrl = (ticketUrl) => {
     // http://localhost:3000?contractAddress=0xa&tokenId=0&secret=a
-    const url = new URL(ticketUrl);
+    let url;
+
+    try {
+      url = new URL(ticketUrl);
+    } catch (e) {
+      console.log(e, "not a url")
+      return "http://localhost:3000?contractAddress=0xa&tokenId=0&secret=a";  
+    }
+
     const requestedNft = new URLSearchParams(url.search);
 
     return {
@@ -64,27 +72,27 @@ const Demo = () => {
     startQrCode();
   }, []);
 
+  useEffect(()=>{
+
+  });
+
   useEffect(() => {
     (async ()=> {
+      console.log(decodedQRData)
       if(!_.isEmpty(decodedQRData.data)) {
         const tokenParameters = getNftParametersFromUrl(decodedQRData.data)
 
         setValidationState({...validationState, loading: true})
         
         const validationResponse = await validateTicket(tokenParameters)
-        const validationState = _.get(validationResponse, 'data.state', 'no_data')
+        const validationStateRes = _.get(validationResponse, 'data.state', 'no_data')
 
-        setValidationState({...validationState, loading: false, state: validationState})
+        setValidationState({...validationState, loading: false, state: validationStateRes})
 
         console.log(decodedQRData)
       }
     })()
-
   }, [decodedQRData])
-  
-
-
-
 
   return (
     <div>
