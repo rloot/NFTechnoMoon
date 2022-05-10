@@ -80,19 +80,21 @@ const Demo = () => {
     (async ()=> {
       console.log(decodedQRData)
       if(!_.isEmpty(decodedQRData.data)) {
-        const tokenParameters = getNftParametersFromUrl(decodedQRData.data)
-
-        setValidationState({...validationState, loading: true})
         
-        const validationResponse = await validateTicket(tokenParameters)
-        const validationStateRes = _.get(validationResponse, 'data.state', 'no_data')
+        const interval = setInterval(async () => {
+          const tokenParameters = getNftParametersFromUrl(decodedQRData.data)
+  
+          const validationResponse = await validateTicket(tokenParameters)
+          const validationStateRes = _.get(validationResponse, 'data.state', 'no_data')
+          
+          setValidationState({...validationState, state: validationStateRes})
 
-        setValidationState({...validationState, loading: false, state: validationStateRes})
-
-        console.log(decodedQRData)
+        }, 2500);
+      
+        return () => clearInterval(interval);
       }
     })()
-  }, [decodedQRData])
+  }, [decodedQRData.data])
 
   return (
     <div>
