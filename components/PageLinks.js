@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { Button } from '@material-ui/core'
 
 const styles = {
   content: {
@@ -15,17 +16,12 @@ const styles = {
 }
 
 const PageLinks = () => (
-  <div style={styles.content}>
-    <div>
-      <Link href="/verify">
-        <a style={styles.linkAnchor}>
-          Verificar ticket.
-        </a>
-      </Link>
-      <Link href="/auth">
-        <a style={styles.linkAnchor}>Log in</a>
-      </Link>
-    </div>
+  <div>
+    <Link href="/verify">
+      <Button variant="contained" color="secondary">
+        Verificar ticket.
+      </Button>
+    </Link>
   </div>
 )
 

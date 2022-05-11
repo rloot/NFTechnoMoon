@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { Button } from '@material-ui/core'
 
 const nfaDependencyVersion =
   require('../package.json').dependencies['next-firebase-auth']
@@ -29,24 +30,26 @@ const Header = ({ email, signOut }) => (
     {email ? (
       <>
         <p>{email}</p>
-        <button
-          type="button"
+        <Button
+          size="small" 
+          color="secondary" 
+          variant="contained" 
           onClick={() => {
             signOut()
           }}
           style={styles.button}
         >
           Sign out
-        </button>
+        </Button>
       </>
     ) : (
       <>
         <p>You are not signed in.</p>
         <Link href="/auth">
           <a>
-            <button type="button" style={styles.button}>
+            <Button size="small" color="secondary" variant="contained" style={styles.button}>
               Sign in
-            </button>
+            </Button>
           </a>
         </Link>
       </>
