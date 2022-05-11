@@ -67,7 +67,7 @@ const Demo = () => {
     state: '',
   })
 
-  const [ timeOut, setTimeout ] = useState(false)
+  const [ timeOut, setShowTimeOut ] = useState(false)
 
   useEffect(() => {
     // Add logic to add the camera and scan it
@@ -81,19 +81,23 @@ const Demo = () => {
   useEffect(() => {
     (async ()=> {
       console.log(decodedQRData)
-      if(!_.isEmpty(decodedQRData.data)) {
+      if(!_.isEmpty(decodedQRData.data) && !timeOut) {
         
+        setShowTimeOut(true) 
         const interval = setTimeout(async () => { 
-        const tokenParameters = getNftParametersFromUrl(decodedQRData.data)
+          const tokenParameters = getNftParametersFromUrl(decodedQRData.data)
 
-        const validationResponse = await validateTicket(tokenParameters)
-        console.log('hey')
-        const validationStateRes = _.get(validationResponse, 'data.state', 'no_data')
-        
-        setValidationState({...validationState, state: validationStateRes})
+          const validationResponse = await validateTicket(tokenParameters)
+          console.log('hey')
+          const validationStateRes = _.get(validationResponse, 'data.state', 'no_data')
+          
+          setValidationState({...validationState, state: validationStateRes})
+          setShowTimeOut(false) 
         }, 2500);
       
-        return () => clearTimeout(interval);
+        return (() => {
+          clearTimeout(interval)
+        });
       }
     })()
   }, [decodedQRData])
@@ -106,7 +110,7 @@ const Demo = () => {
           <h3>Scan QR code</h3>
           <p>
             This page requires authentication.
-            STATE: {validationState.state}
+            STATE: {timeOut ? '... ' : validationState.state}
           </p>
         </div>
         <div id="qrcodemountnode"></div>
