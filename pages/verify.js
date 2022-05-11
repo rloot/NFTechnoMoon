@@ -1,6 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useAuthUser, withAuthUser, AuthAction } from 'next-firebase-auth'
-import { Box } from '@material-ui/core'
+
+import { Box, CircularProgress, Item, Grid } from '@material-ui/core'
+import { DoneOutlineOutlined } from '@mui/icons-material'
+import { Error } from '@mui/icons-material'
+
 import Header from '../components/Header'
 import FullPageLoader from '../components/FullPageLoader'
 import getAbsoluteURL from '../utils/getAbsoluteURL'
@@ -78,13 +82,8 @@ const Demo = () => {
     startQrCode();
   }, []);
 
-  useEffect(()=>{
-
-  });
-
   useEffect(() => {
     (async ()=> {
-      console.log(decodedQRData)
       if(!_.isEmpty(decodedQRData.data) && !timeOut) {
         
         setShowTimeOut(true) 
@@ -92,7 +91,6 @@ const Demo = () => {
           const tokenParameters = getNftParametersFromUrl(decodedQRData.data)
 
           const validationResponse = await validateTicket(tokenParameters)
-          console.log('hey')
           const validationStateRes = _.get(validationResponse, 'data.state', 'no_data')
           
           setValidationState({...validationState, state: validationStateRes})
@@ -106,6 +104,36 @@ const Demo = () => {
     })()
   }, [decodedQRData])
 
+  const _stateView = (state) => {
+    let message = "default";
+    let icon = <Error />;
+
+    switch(state) {
+      case 'used': 
+        message = "Este ticket ya fue usado";
+      break;
+      case 'marked_success':
+        message = "Ticket marcado";
+        icon = <DoneOutlineOutlined />
+      break;
+      case 'marked_failiure':
+        message = "No se pudo marcar";
+      break;
+      case 'no_data':
+        message = "error";
+      break;
+      default:
+        return;
+    }
+
+    return (
+      <Grid container>
+        <Grid item xs={6}>{message}</Grid>
+        <Grid item xs={6}>{icon}</Grid>
+      </Grid>
+     )
+  }
+
   return (
     <Box style={styles.component}>
       <Header email={AuthUser.email} signOut={AuthUser.signOut} />
@@ -113,8 +141,7 @@ const Demo = () => {
         <div style={styles.infoTextContainer}>
           <h3>Scan QR</h3>
           <p>
-            <br/>
-            {timeOut ? '... ' : validationState.state}
+            {timeOut ? <CircularProgress /> : _stateView(validationState.state)}
           </p>
         </div>
         <div id="qrcodemountnode"></div>
