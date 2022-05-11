@@ -14,6 +14,7 @@ const styles = {
   infoTextContainer: {
     marginBottom: 32,
   },
+
 }
 
 const Demo = () => {

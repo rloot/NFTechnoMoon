@@ -110,6 +110,7 @@ const Demo = () => {
           <h3>Scan QR code</h3>
           <p>
             This page requires authentication.
+            <br/>
             STATE: {timeOut ? '... ' : validationState.state}
           </p>
         </div>
