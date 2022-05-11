@@ -1,0 +1,37 @@
+{
+  "name": "example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@material-ui/core": "^4.12.4",
+    "@mui/icons-material": "^5.6.2",
+    "@mui/material": "^5.7.0",
+    "axios": "^0.27.2",
+    "firebase": "^8.9.1",
+    "firebase-admin": "^10.0.0",
+    "html5-qrcode": "^2.2.1",
+    "lodash": "^4.17.21",
+    "next": "12.1.6",
+    "next-absolute-url": "^1.2.2",
+    "next-firebase-auth": "^0.14.4-alpha.0",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "react-firebaseui": "^5.0.2",
+    "vercel": "^24.2.0"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^12.1.6",
+    "@types/node": "^17.0.31",
+    "@types/react": "^18.0.9",
+    "eslint-config-next": "^12.1.6",
+    "typescript": "4.6.4"
+  }
+}
