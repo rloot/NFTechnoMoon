@@ -5,7 +5,7 @@ import {
 } from 'next-firebase-auth'
 import Header from '../components/Header'
 import PageLinks from '../components/PageLinks'
-import getAbsoluteURL from '../utils/getAbsoluteURL'
+import { Box } from '@material-ui/core'
 
 const styles = {
   content: {
@@ -14,6 +14,9 @@ const styles = {
   infoTextContainer: {
     marginBottom: 32,
   },
+  component: {
+    backgroundColor: '#000'
+  }
 
 }
 
@@ -21,7 +24,7 @@ const Demo = () => {
   const AuthUser = useAuthUser()
 
   return (
-    <div>
+    <Box style={styles.component}>
       <Header email={AuthUser.email} signOut={AuthUser.signOut} />
       <div style={styles.content}>
         <div style={styles.infoTextContainer}>
@@ -29,7 +32,7 @@ const Demo = () => {
         </div>
         <PageLinks />
       </div>
-    </div>
+    </Box>
   )
 }
 

@@ -1,10 +1,12 @@
 import React from 'react'
 import { withAuthUser, AuthAction } from 'next-firebase-auth'
 import FirebaseAuth from '../components/FirebaseAuth'
+import { Box } from '@material-ui/core'
 
 const styles = {
   content: {
     padding: `8px 32px`,
+    backgroundColor: '#000'
   },
   textContainer: {
     display: 'flex',
@@ -14,18 +16,14 @@ const styles = {
 }
 
 const Auth = () => (
-  <div style={styles.content}>
+  <Box style={styles.content}>
     <h3>Sign in</h3>
     <div style={styles.textContainer}>
-      <p>
-        This auth page is <b>static</b>. It will redirect on the client side if
-        the user is already authenticated.
-      </p>
     </div>
     <div>
       <FirebaseAuth />
     </div>
-  </div>
+  </Box>
 )
 
 export default withAuthUser({

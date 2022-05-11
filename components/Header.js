@@ -28,7 +28,7 @@ const Header = ({ email, signOut }) => (
   <div style={styles.container}>
     {email ? (
       <>
-        <p>Signed in as {email}</p>
+        <p>{email}</p>
         <button
           type="button"
           onClick={() => {

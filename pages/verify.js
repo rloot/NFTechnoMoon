@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useAuthUser, withAuthUser, AuthAction } from 'next-firebase-auth'
+import { Box } from '@material-ui/core'
 import Header from '../components/Header'
-import PageLinks from '../components/PageLinks'
 import FullPageLoader from '../components/FullPageLoader'
 import getAbsoluteURL from '../utils/getAbsoluteURL'
 import useQRCodeScan from '../utils/useQRCodeScan'
@@ -11,10 +11,14 @@ import * as _ from 'lodash'
 const styles = {
   content: {
     padding: 32,
+    backgroundColor: '#00000'
   },
   infoTextContainer: {
-    marginBottom: 32,
+    marginBottom: 12,
   },
+  component: {
+    backgroundColor: '#000'
+  }
 }
 
 const Demo = () => {
@@ -103,22 +107,19 @@ const Demo = () => {
   }, [decodedQRData])
 
   return (
-    <div>
+    <Box style={styles.component}>
       <Header email={AuthUser.email} signOut={AuthUser.signOut} />
       <div style={styles.content}>
         <div style={styles.infoTextContainer}>
-          <h3>Scan QR code</h3>
+          <h3>Scan QR</h3>
           <p>
-            This page requires authentication.
             <br/>
-            STATE: {timeOut ? '... ' : validationState.state}
+            {timeOut ? '... ' : validationState.state}
           </p>
         </div>
         <div id="qrcodemountnode"></div>
-
-        <button onClick={validateTicket}>NFT API</button>
       </div>
-    </div>
+    </Box>
   )
 }
 
