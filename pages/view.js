@@ -7,7 +7,8 @@ const styles = {
   content: {
     padding: 32,
     backgroundColor: '#00000',
-    textAlign: 'left'
+    textColor: '#FFFFFF',
+    textAlign: 'center'
   },
   infoTextContainer: {
     marginBottom: 12,
@@ -16,7 +17,11 @@ const styles = {
     backgroundColor: '#000'
   },
   video: {
-    width: '100%'
+    width: '100%',
+    margin: 'auto',
+    maxWidth: '600px',
+    maxHeight: '600px',
+
   }
 }
   
@@ -52,16 +57,16 @@ const View = () => {
     const param = []
 
     _.forEach(token.data, (data, key) => {
-      param.push(<h3>{data}</h3>)
+      param.push(<h3 key={key}>{data}</h3>)
     })
   
     return (
       <div className='container'>
         <p>
-          Este es un elemento unico coleccionable y valido por una entrada.
+          Este es un elemento unico coleccionable, valido por una entrada.
         </p>
         {param}
-        <video autoPlay="true" loop="true" style={styles.video}>
+        <video autoPlay={true} loop={true} style={styles.video}>
          <source type="video/mp4" src="https://technomoon.com.ar/technoMoonPresentacion.mp4" />  
         </video>
       </div>
@@ -72,8 +77,11 @@ const View = () => {
     <Box style={styles.component}>
       <div style={styles.content}>
         <div style={styles.infoTextContainer}>
-          <h1> TechnoMoon NFT</h1>
-          {!token.loading ?  _tokenRender() : <CircularProgress />}
+
+          <div> 
+          <h1>TechnoMoon NFT</h1>
+            {!token.loading ?  _tokenRender() : <CircularProgress />}
+          </div>
         </div>
 
       </div>
