@@ -1,0 +1,23 @@
+{
+  "description": "The first NFT of the Techno Moon NFT set, which will include a collaboration between Visual Artists and Music Producers.", 
+  "external_url": "https://openseacreatures.io/3", 
+  "imgage": "https://gateway.pinata.cloud/ipfs/QmWxLA23f8km6EzgbFpAgRp7Mdf7uii75Mo3Mi4YWXY3Ya",
+  "animation_gif": "https://gateway.pinata.cloud/ipfs/Qmd4hvcqv5Hds5wzAZtw6bJXv4rzdD8EoDXzGcf585ScCm",
+  "animation_url": "https://technomoon.com.ar/technoMoonPresentacion.mp4",
+  "name": "Genesis",
+  "attributes": [ 
+    {
+      "trait_type": "music_by", 
+      "value": "Julian Principe"
+    }, 
+    {
+      "trait_type": "art_by", 
+      "value": "Guillermo Loinaz"
+    }, 
+    {
+      "trait_type": "expiration_date", 
+      "value": "1652522400"
+    } 
+  ]
+}
+  
