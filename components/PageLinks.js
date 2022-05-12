@@ -18,7 +18,7 @@ const styles = {
 const PageLinks = () => (
   <>
     <Box padding={2}>
-      <Link href="/verify">
+      <Link href="qr/verify">
         <Button variant="contained" color="secondary">
           Verificar ticket.
         </Button>

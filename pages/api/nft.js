@@ -26,17 +26,7 @@ const handler = async (req, res) => {
         redirect: 'follow'
       };
     
-      const apiKey = process.env.ALCHEMY_KEY
-      const baseURL = `https://eth-mainnet.alchemyapi.io/v2/${apiKey}/getNFTMetadata`;
-      const tokenType = "erc721";
-      const fetchURL = `${baseURL}?contractAddress=${contractAddress}&tokenId=${tokenId}&tokenType=${tokenType}`;
-      
-      const metadataResponse = await fetch(fetchURL, requestOptions)
-        .then(response => response.json())
-        .then(response => JSON.stringify(response, null, 2))
-        .catch(error => console.log('error', error))      // fetch metadata from nft
-  
-        res.status(200).json({metadataResponse})
+
     }
     
     const token = req.headers.authorization
