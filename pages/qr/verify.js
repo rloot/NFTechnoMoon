@@ -88,12 +88,16 @@ const Demo = () => {
         
         setShowTimeOut(true) 
         const interval = setTimeout(async () => { 
-          const tokenParameters = getNftParametersFromUrl(decodedQRData.data)
-
-          const validationResponse = await validateTicket(tokenParameters)
-          const validationStateRes = _.get(validationResponse, 'data.state', 'no_data')
-          
-          setValidationState({...validationState, state: validationStateRes})
+          try {
+            const tokenParameters = getNftParametersFromUrl(decodedQRData.data)
+  
+            const validationResponse = await validateTicket(tokenParameters)
+            const validationStateRes = _.get(validationResponse, 'data.state', 'no_data')
+            
+            setValidationState({...validationState, state: validationStateRes})
+          } catch (e) {
+            setValidationState({...validationState, state: 'no_data'})
+          }
           setShowTimeOut(false) 
         }, 2500);
       
@@ -120,7 +124,7 @@ const Demo = () => {
         message = "No se pudo marcar";
       break;
       case 'no_data':
-        message = "error";
+        message = "Error, algo salio mal";
       break;
       case 'non_existent':
         message = "QR no valido";
@@ -143,9 +147,7 @@ const Demo = () => {
       <div style={styles.content}>
         <div style={styles.infoTextContainer}>
           <h3>Scan QR</h3>
-          <p>
-            {timeOut ? <CircularProgress /> : _stateView(validationState.state)}
-          </p>
+          {timeOut ? <CircularProgress /> : _stateView(validationState.state)}
         </div>
         <div id="qrcodemountnode"></div>
       </div>

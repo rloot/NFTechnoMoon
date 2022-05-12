@@ -24,14 +24,14 @@ const PageLinks = () => (
         </Button>
       </Link>
     </Box>
-
+{/* 
     <Box padding={2}>
       <Link href="/view">
         <Button variant="contained" color="secondary">
           View.
         </Button>
       </Link>
-    </Box>
+    </Box> */}
   </>
 )
 

@@ -1,21 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useAuthUser, withAuthUser, AuthAction } from 'next-firebase-auth'
-import Image from 'next/image'
-import { Box, CircularProgress, Item, Grid } from '@material-ui/core'
-import { DoneOutlineOutlined } from '@mui/icons-material'
-import { Error } from '@mui/icons-material'
-
-import Header from '../components/Header'
-import useQRCodeScan from '../utils/useQRCodeScan'
-import axios from 'axios'
+import { Box, CircularProgress, Typography } from '@material-ui/core'
 import * as _ from 'lodash'
 
 const styles = {
   content: {
     padding: 32,
     backgroundColor: '#00000',
-    textAlign: 'center'
-
+    textAlign: 'left'
   },
   infoTextContainer: {
     marginBottom: 12,
