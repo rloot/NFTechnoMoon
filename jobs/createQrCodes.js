@@ -2,7 +2,7 @@ const _ = require('lodash')
 var qr = require('node-qr-image');
 const ticketList = require('../db/viernes_13.json');
 
-const baseUrl = 'localhost:3000/view/'
+const baseUrl = 'https://tickets-h2whutj0q-technomoon.vercel.app/view/'
 const contractAddress = "0x0000000000000000000000000000000000000000";
 const contractTickets = _.get(ticketList, `tickets.${contractAddress}`);
 

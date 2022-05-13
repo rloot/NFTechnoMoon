@@ -61,7 +61,7 @@ const View = () => {
           Hola {_.get(token,'data.name', ' ')} este es un elemento unico, coleccionable y valido por una entrada.
         </p>
 
-        <p>{_.get(token,'data.contractAddress', '')} </p>
+        <p>{(_.get(token,'data.contractAddress', '')).slice(0,8)} ... </p>
         <p>{_.get(token,'data.tokenId', '')}</p>
         <p>{_.get(token,'data.secret', '')}</p>
 
