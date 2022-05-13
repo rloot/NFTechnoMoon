@@ -15,6 +15,11 @@ const firebaseAuthConfig = {
     {
       provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
       requireDisplayName: false,
+      disableSignUp: {
+        status: true,
+        adminEmail: "",
+        helpLink: "https://www.example.com/trouble_signing_in",
+    },
     },
   ],
   signInSuccessUrl: '/',

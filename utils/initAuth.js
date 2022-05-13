@@ -11,7 +11,7 @@ const initAuth = () => {
     // This demonstrates setting a dynamic destination URL when
     // redirecting from app pages. Alternatively, you can simply
     // specify `authPageURL: '/auth-ssr'`.
-    authPageURL: '/',
+    authPageURL: '/auth',
 
     // This demonstrates setting a dynamic destination URL when
     // redirecting from auth pages. Alternatively, you can simply

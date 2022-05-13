@@ -53,7 +53,7 @@ const handler = async (req, res) => {
       // Mark token
       const setMarked = await markTicketAsUsed(contractAddress, tokenId)
       
-      if(setMarked) 
+      if(setMarked)
       {
         return res.status(200).json({ state: 'marked_success', isTokenUsedResponse })
       }
