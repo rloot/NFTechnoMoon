@@ -1,0 +1,55 @@
+{
+  "tickets": {
+    "0x0000000000000000000000000000000000000000": {
+      "0": {
+        "secret": "meridiem",
+        "ownerEmail": "",
+        "ownersWalletAddress": "",
+        "marked": false,
+        "name": "Augusto Lucero"
+      },     
+      "1": {
+        "secret": "audemus",
+        "ownerEmail": "",
+        "ownersWalletAddress": "",
+        "marked": false,
+        "name": "Nicolo Morazzo"
+      },
+      "2": {
+        "secret": "audere",
+        "ownerEmail": "",
+        "ownersWalletAddress": "",
+        "marked": false,
+        "name": "Francisca Lopez"
+      },
+      "3": {
+        "secret": "contemptus",
+        "ownerEmail": "",
+        "ownersWalletAddress": "",
+        "marked": false,
+        "name": "Juan Pablo Bermani"
+      },     
+      "4": {
+        "secret": "victurus",
+        "ownerEmail": "",
+        "ownersWalletAddress": "",
+        "marked": false,
+        "name": "Candela Etcheverry"
+      },     
+      "6": {
+        "secret": "desistam",
+        "ownerEmail": "",
+        "ownersWalletAddress": "",
+        "marked": false,
+        "name": "budi"
+      },
+      "7": {
+        "secret": "memento",
+        "ownerEmail": "",
+        "ownersWalletAddress": "",
+        "marked": false,
+        "name": "skamy"
+      }     
+    }  
+  }
+}
