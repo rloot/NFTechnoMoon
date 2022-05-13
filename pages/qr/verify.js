@@ -72,7 +72,7 @@ const Demo = () => {
   const [ validationState, setValidationState ] = useState({
     loading: false,
     error: false,
-    state: '',
+    state: 'non',
   })
 
   const [ timeOut, setShowTimeOut ] = useState(false)
@@ -93,7 +93,7 @@ const Demo = () => {
   
             const validationResponse = await validateTicket(tokenParameters)
             const validationStateRes = _.get(validationResponse, 'data.state', 'no_data')
-            
+            console.log(validationStateRes) 
             setValidationState({...validationState, state: validationStateRes})
           } catch (e) {
             setValidationState({...validationState, state: 'no_data'})
@@ -135,8 +135,8 @@ const Demo = () => {
 
     return (
       <Grid container>
-        <Grid item xs={6}>{message}</Grid>
-        <Grid item xs={6}>{icon}</Grid>
+        <Grid item xs={6}><p>{message}</p></Grid>
+        <Grid item xs={6}><p>{icon}</p></Grid>
       </Grid>
      )
   }
@@ -147,6 +147,7 @@ const Demo = () => {
       <div style={styles.content}>
         <div style={styles.infoTextContainer}>
           <h3>Scan QR</h3>
+          {validationState.state}
           {timeOut ? <CircularProgress /> : _stateView(validationState.state)}
         </div>
         <div id="qrcodemountnode"></div>
