@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { Button } from '@material-ui/core'
+import { Button, Box } from '@material-ui/core'
 
 const styles = {
   content: {
@@ -16,13 +16,23 @@ const styles = {
 }
 
 const PageLinks = () => (
-  <div>
-    <Link href="/verify">
-      <Button variant="contained" color="secondary">
-        Verificar ticket.
-      </Button>
-    </Link>
-  </div>
+  <>
+    <Box padding={2}>
+      <Link href="qr/verify">
+        <Button variant="contained" color="secondary">
+          Verificar ticket.
+        </Button>
+      </Link>
+    </Box>
+{/* 
+    <Box padding={2}>
+      <Link href="/view">
+        <Button variant="contained" color="secondary">
+          View.
+        </Button>
+      </Link>
+    </Box> */}
+  </>
 )
 
 PageLinks.displayName = 'PageLinks'

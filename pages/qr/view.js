@@ -1,14 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useAuthUser, withAuthUser, AuthAction } from 'next-firebase-auth'
-
 import { Box, CircularProgress, Item, Grid } from '@material-ui/core'
-import { DoneOutlineOutlined } from '@mui/icons-material'
-import { Error } from '@mui/icons-material'
 
-import Header from '../components/Header'
-import FullPageLoader from '../components/FullPageLoader'
-import getAbsoluteURL from '../utils/getAbsoluteURL'
-import useQRCodeScan from '../utils/useQRCodeScan'
+import Header from '../../components/Header'
+import useQRCodeScan from '../../utils/useQRCodeScan'
 import axios from 'axios'
 import * as _ from 'lodash'
 
@@ -24,10 +19,9 @@ const styles = {
     backgroundColor: '#000'
   }
 }
-
-const Demo = () => {
+  
+const View = () => {
   const AuthUser = useAuthUser() // the user is guaranteed to be authenticated
-  const token = AuthUser.getIdToken()
 
   const { startQrCode, decodedQRData } = useQRCodeScan({
     qrcodeMountNodeID: "qrcodemountnode",
@@ -53,27 +47,23 @@ const Demo = () => {
     }
   }
 
-  const validateTicket = async ({contractAddress, tokenId, secret}) => {
-    const validation = await axios.get(getAbsoluteURL('/api/nft'), {
-      auth: {
-        Authorization: token,
-      },
-      params: {
-        contractAddress,
-        tokenId,
-        secret
-      }
-    })
-
-    // alert(validation.data.state)
-    return validation
-  }
-
   const [ validationState, setValidationState ] = useState({
     loading: false,
     error: false,
     state: '',
   })
+
+  const getTicketData = async ({contractAddress, tokenId, secret}) => {
+    const ticket = await axios.get(getAbsoluteURL('/api/nft'), {
+      params: {
+        contractAddress,
+        tokenId,
+        secret
+      }
+    });
+
+    return ticket;
+  }
 
   const [ timeOut, setShowTimeOut ] = useState(false)
 
@@ -90,10 +80,7 @@ const Demo = () => {
         const interval = setTimeout(async () => { 
           const tokenParameters = getNftParametersFromUrl(decodedQRData.data)
 
-          const validationResponse = await validateTicket(tokenParameters)
-          const validationStateRes = _.get(validationResponse, 'data.state', 'no_data')
-          
-          setValidationState({...validationState, state: validationStateRes})
+          setValidationState({})
           setShowTimeOut(false) 
         }, 2500);
       
@@ -104,36 +91,6 @@ const Demo = () => {
     })()
   }, [decodedQRData])
 
-  const _stateView = (state) => {
-    let message = "default";
-    let icon = <Error />;
-
-    switch(state) {
-      case 'used': 
-        message = "Este ticket ya fue usado";
-      break;
-      case 'marked_success':
-        message = "Ticket marcado";
-        icon = <DoneOutlineOutlined />
-      break;
-      case 'marked_failiure':
-        message = "No se pudo marcar";
-      break;
-      case 'no_data':
-        message = "error";
-      break;
-      default:
-        return;
-    }
-
-    return (
-      <Grid container>
-        <Grid item xs={6}>{message}</Grid>
-        <Grid item xs={6}>{icon}</Grid>
-      </Grid>
-     )
-  }
-
   return (
     <Box style={styles.component}>
       <Header email={AuthUser.email} signOut={AuthUser.signOut} />
@@ -141,17 +98,14 @@ const Demo = () => {
         <div style={styles.infoTextContainer}>
           <h3>Scan QR</h3>
           <p>
-            {timeOut ? <CircularProgress /> : _stateView(validationState.state)}
+            {/* {timeOut ? <CircularProgress /> : ''} */}
           </p>
         </div>
         <div id="qrcodemountnode"></div>
       </div>
     </Box>
   )
+
 }
 
-export default withAuthUser({
-  whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
-  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-  LoaderComponent: FullPageLoader,
-})(Demo)
+export default withAuthUser()(View)
