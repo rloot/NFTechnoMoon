@@ -37,6 +37,7 @@ const View = () => {
     return {
       contractAddress: requestedNft.get('contractAddress'),
       tokenId: requestedNft.get('tokenId'),
+      name: requestedNft.get('name'),
       secret: requestedNft.get('secret')
     }
   }
@@ -54,18 +55,16 @@ const View = () => {
 
   const _tokenRender = () => {
 
-    const param = []
-
-    _.forEach(token.data, (data, key) => {
-      param.push(<h3 key={key}>{data}</h3>)
-    })
-  
     return (
       <div className='container'>
         <p>
-          Este es un elemento unico, coleccionable y valido por una entrada.
+          Hola {_.get(token,'data.name', ' ')} este es un elemento unico, coleccionable y valido por una entrada.
         </p>
-        {param}
+
+        <p>{_.get(token,'data.contractAddress', '')} </p>
+        <p>{_.get(token,'data.tokenId', '')}</p>
+        <p>{_.get(token,'data.secret', '')}</p>
+
         <video autoPlay={true} loop={true} style={styles.video}>
          <source type="video/mp4" src="https://technomoon.com.ar/technoMoonPresentacion.mp4" />  
         </video>
