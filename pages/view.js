@@ -63,7 +63,7 @@ const View = () => {
     return (
       <div className='container'>
         <p>
-          Este es un elemento unico coleccionable, valido por una entrada.
+          Este es un elemento unico, coleccionable y valido por una entrada.
         </p>
         {param}
         <video autoPlay={true} loop={true} style={styles.video}>
