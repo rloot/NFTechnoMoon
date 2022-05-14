@@ -20,7 +20,7 @@ const styles = {
 
 }
 
-const Demo = () => {
+const Index = () => {
   const AuthUser = useAuthUser()
 
   return (
@@ -36,4 +36,4 @@ const Demo = () => {
   )
 }
 
-export default withAuthUser()(Demo)
+export default withAuthUser()(Index)

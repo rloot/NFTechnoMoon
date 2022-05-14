@@ -2,7 +2,7 @@ const _ = require('lodash')
 var qr = require('node-qr-image');
 const ticketList = require('../db/viernes_13.json');
 
-const baseUrl = 'https://tickets-h2whutj0q-technomoon.vercel.app/view/'
+const baseUrl = 'https://tickets-in5ghmo2m-technomoon.vercel.app/view/'
 const contractAddress = "0x0000000000000000000000000000000000000000";
 const contractTickets = _.get(ticketList, `tickets.${contractAddress}`);
 
@@ -32,7 +32,7 @@ console.log(ticketsURLs)
 
 // Construct QR codes
 _.forEach(ticketsURLs, (urlData,id) => {
-  let qr_svg = qr.image(urlData.url, { type: 'png' });
+  let qr_svg = qr.image(urlData.url, { type: 'png', size: 300 });
   qr_svg.pipe(require('fs').createWriteStream(`QRs/${urlData.name}_${id}.png`));
 });
 

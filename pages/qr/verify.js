@@ -25,7 +25,7 @@ const styles = {
   }
 }
 
-const Demo = () => {
+const VerifyQR = () => {
   const AuthUser = useAuthUser() // the user is guaranteed to be authenticated
   const token = AuthUser.getIdToken()
 
@@ -35,21 +35,18 @@ const Demo = () => {
 
   const getNftParametersFromUrl = (ticketUrl) => {
     // http://localhost:3000?contractAddress=0xa&tokenId=0&secret=a
-    let url;
-
     try {
-      url = new URL(ticketUrl);
+      const url = new URL(ticketUrl);
+      const requestedNft = new URLSearchParams(url.search);
+
+      return {
+        contractAddress: requestedNft.get('contractAddress'),
+        tokenId: requestedNft.get('tokenId'),
+        secret: requestedNft.get('secret')
+      }
     } catch (e) {
       console.log(e, "not a url")
       return "http://localhost:3000?contractAddress=0xa&tokenId=0&secret=a";  
-    }
-
-    const requestedNft = new URLSearchParams(url.search);
-
-    return {
-      contractAddress: requestedNft.get('contractAddress'),
-      tokenId: requestedNft.get('tokenId'),
-      secret: requestedNft.get('secret')
     }
   }
 
@@ -72,13 +69,12 @@ const Demo = () => {
   const [ validationState, setValidationState ] = useState({
     loading: false,
     error: false,
-    state: 'non',
+    state: '',
   })
 
   const [ timeOut, setShowTimeOut ] = useState(false)
 
   useEffect(() => {
-    // Add logic to add the camera and scan it
     startQrCode();
   }, []);
 
@@ -93,7 +89,7 @@ const Demo = () => {
   
             const validationResponse = await validateTicket(tokenParameters)
             const validationStateRes = _.get(validationResponse, 'data.state', 'no_data')
-            console.log(validationStateRes) 
+
             setValidationState({...validationState, state: validationStateRes})
           } catch (e) {
             setValidationState({...validationState, state: 'no_data'})
@@ -160,4 +156,4 @@ export default withAuthUser({
   whenUnauthedBeforeInit: AuthAction.SHOW_LOADER,
   whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
   LoaderComponent: FullPageLoader,
-})(Demo)
+})(VerifyQR)
