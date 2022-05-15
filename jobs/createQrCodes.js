@@ -32,7 +32,7 @@ console.log(ticketsURLs)
 
 // Construct QR codes
 _.forEach(ticketsURLs, (urlData,id) => {
-  let qr_svg = qr.image(urlData.url, { type: 'png', size: 300 });
+  let qr_svg = qr.image(urlData.url, { type: 'png', size: 100 });
   qr_svg.pipe(require('fs').createWriteStream(`QRs/${urlData.name}_${id}.png`));
 });
 

@@ -68,8 +68,7 @@ export default function useQRCodeScan({
           .start(
             // { deviceId: { exact: cameraId } },
             { facingMode: "environment" },
-  
-            { fps: 2, qrbox, aspectRatio: 1.777778 },
+            { fps: 40, qrbox, aspectRatio: 1.777778 },
             (qrCodeMessage) => {
               // do something when code is read
               console.log({qrCodeMessage})
